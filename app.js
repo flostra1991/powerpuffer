@@ -1,52 +1,39 @@
 // Spotify API Variablen
 const clientId = 'f3efb62584fb45f7b55583c2115a89b5';  // Deine Client-ID von Spotify
-const redirectUri = 'https://flostra1991.github.io/powerpuffer/';  // Achte auf den Schrägstrich am Ende
+const redirectUri = 'https://github.com/flostra1991/powerpuffer.git';  // Die Redirect URI zeigt auf die Root-Seite
 let accessToken = '';
 
 // Spotify API Authentifizierungs-URL erstellen
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 const scopes = 'user-read-private user-read-email';
 
-const authUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(scopes)}`;
+const authUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${scopes}`;
 
 // Authentifizierung mit Spotify API
 function authenticate() {
-    console.log('Authentifizierung gestartet...');
-    console.log('Redirect URI:', redirectUri);  // Debugging: Die Redirect URI wird in der Konsole ausgegeben
-    console.log('Auth URL:', authUrl);  // Debugging: Die Authentifizierungs-URL wird in der Konsole ausgegeben
-    window.location.href = authUrl;  // Leite den Benutzer zu Spotify um, um die Authentifizierung zu starten
+    window.location = authUrl;
 }
 
-// Access Token aus der URL holen und prüfen, ob der Benutzer authentifiziert wurde
+// Access Token aus der URL holen
 function getAccessToken() {
-    const hash = window.location.hash;  // Prüft, ob die URL den Access Token enthält
+    const hash = window.location.hash;
     if (hash) {
         const params = new URLSearchParams(hash.substring(1));
         accessToken = params.get('access_token');
-        console.log('Access Token erhalten:', accessToken);  // Debugging: Token in der Konsole ausgeben
-        window.location.hash = '';  // Entferne das Token aus der URL, um die URL sauber zu halten
+        window.location.hash = '';  // Entferne das Token aus der URL
 
-        if (accessToken) {
-            // Authentifizierung erfolgreich
-            console.log('Token erhalten und gespeichert.');
-        } else {
-            // Authentifizierung fehlgeschlagen
-            console.error('Fehler beim Abrufen des Tokens.');
+        // Prüfe, ob der Benutzer sich auf der Root-Seite befindet
+        if (window.location.pathname === '/') {
+            console.log('Token erhalten, bleibe auf der Seite.');
         }
-    } else {
-        // Kein Token vorhanden, starte die Authentifizierung
-        console.log('Kein Access Token vorhanden, starte Authentifizierung.');
-        authenticate();
     }
 }
 
 // Hauptfunktion zum Erkennen und Ausführen der richtigen Suche
 function search() {
-    console.log('Suche gestartet...');
     const input = document.getElementById('searchInput').value.trim();
 
     if (!accessToken) {
-        console.log('Kein Access Token vorhanden, Authentifizierung wird gestartet...');
         authenticate();  // Authentifizieren, wenn noch kein Token vorhanden ist
         return;
     }
@@ -76,9 +63,6 @@ function search() {
         document.getElementById('result').innerText = 'Bitte geben Sie einen Songnamen, einen Spotify-Song-Link oder einen Spotify-Playlist-Link ein.';
     }
 }
-
-// Event-Listener für den Button hinzufügen
-document.getElementById('searchButton').addEventListener('click', search);
 
 // Funktion zum Suchen der Tracks einer Playlist anhand der Playlist-ID
 function searchTracksByPlaylistId(playlistId) {
@@ -219,7 +203,12 @@ function isSpotifyPlaylistLink(input) {
     return input.includes('playlist/');
 }
 
-// window.onload: Funktion wird beim Laden der Seite ausgeführt
-window.onload = function() {
-    getAccessToken();  // Versuche den Access Token beim Laden der Seite zu holen
-};
+// Beim Laden der Seite das Access Token holen
+window.onload = getAccessToken;
+
+
+
+
+
+
+
