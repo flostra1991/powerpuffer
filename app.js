@@ -40,16 +40,13 @@ function getAccessToken() {
     }
 }
 
-// Hauptfunktion zum Starten der Authentifizierung oder Nutzung des Tokens
-window.onload = function() {
-    getAccessToken();  // Versuche den Access Token beim Laden der Seite zu holen
-};
-
 // Hauptfunktion zum Erkennen und Ausführen der richtigen Suche
 function search() {
+    console.log('Suche gestartet...');
     const input = document.getElementById('searchInput').value.trim();
 
     if (!accessToken) {
+        console.log('Kein Access Token vorhanden, Authentifizierung wird gestartet...');
         authenticate();  // Authentifizieren, wenn noch kein Token vorhanden ist
         return;
     }
@@ -79,6 +76,9 @@ function search() {
         document.getElementById('result').innerText = 'Bitte geben Sie einen Songnamen, einen Spotify-Song-Link oder einen Spotify-Playlist-Link ein.';
     }
 }
+
+// Event-Listener für den Button hinzufügen
+document.getElementById('searchButton').addEventListener('click', search);
 
 // Funktion zum Suchen der Tracks einer Playlist anhand der Playlist-ID
 function searchTracksByPlaylistId(playlistId) {
@@ -218,3 +218,8 @@ function isSpotifyTrackLink(input) {
 function isSpotifyPlaylistLink(input) {
     return input.includes('playlist/');
 }
+
+// window.onload: Funktion wird beim Laden der Seite ausgeführt
+window.onload = function() {
+    getAccessToken();  // Versuche den Access Token beim Laden der Seite zu holen
+};
