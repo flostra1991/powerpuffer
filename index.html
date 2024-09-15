@@ -72,7 +72,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        /* Ergebnisbereich ohne Hintergrundbox und ohne Rahmen */
+        /* Ergebnisbereich */
         #result {
             padding: 20px;
             margin-top: 20px;
@@ -111,26 +111,17 @@
             text-align: center;
         }
 
-        /* Styling für das Logo */
-        .logo {
-            width: 150px; /* Logo-Größe anpassen */
-            margin-bottom: 20px;
-        }
-
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Logo einfügen -->
-        <img src="Power_Puffer_Logo_Transparent.png" alt="Power Puffer Logo" class="logo">
-
         <h1>Power Puffer</h1>
-        <p>Geben Sie einen Song ein, um die Energy des Songs zu finden:</p>
+        <p>Geben Sie einen Songnamen oder eine Spotify-Playlist ein, um die Energy des Songs zu finden:</p>
 
-        <!-- Kombiniertes Eingabefeld für die Songsuche als Text, Song-Link oder Playlist-Link -->
+        <!-- Eingabefeld für die Songsuche als Text oder Playlist-Link -->
         <p>
-            <label for="searchInput">Geben Sie einen Songnamen, einen Spotify-Song-Link oder einen Spotify-Playlist-Link ein:</label>
-            <input type="text" id="searchInput" placeholder="Text, Spotify-Song-Link oder Playlist-Link eingeben...">
+            <label for="searchInput">Songname oder Spotify-Playlist-Link:</label>
+            <input type="text" id="searchInput" placeholder="Text oder Spotify-Link eingeben...">
         </p>
 
         <!-- Eingabefelder für minimalen und maximalen Energy-Wert -->
@@ -154,7 +145,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-
-
-
-
