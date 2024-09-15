@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Puffer - Spotify Song Finder</title>
+    <style>
+        /* Gesamtes Body-Design im Hellrosa/Mint-Look */
+        body {
+            background-color: #ffe4e6; /* Sehr helles Rosa für den Hintergrund */
+            color: #333; /* Dunkles Grau für eine angenehme Textfarbe */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #2ac4a5; /* Frisches Mintgrün für die Überschrift */
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        p, label {
+            color: #555; /* Etwas helleres Grau für Labels und Anweisungen */
+        }
+
+        /* Eingabefelder im Mintgrün-Design */
+        input[type="text"], input[type="number"] {
+            background-color: #fff;
+            border: 2px solid #2ac4a5; /* Mintgrüner Rahmen */
+            border-radius: 0; /* Eckige Eingabefelder */
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            color: #333;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #ff6f61; /* Auffälliges Hellrosa als Fokusfarbe */
+            box-shadow: 0 0 10px #ff6f61;
+        }
+
+        /* Eckige Buttons mit Mintgrünem Hintergrund und Rosafarbenem Hover */
+        button {
+            background-color: #2ac4a5;
+            border: 2px solid #2ac4a5;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 0; /* Eckige Buttons */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #ff6f61; /* Hellrosa als Hover-Farbe */
+            border-color: #ff6f61;
+            box-shadow: 0 4px 15px rgba(255, 111, 97, 0.5);
+        }
+
+        button:active {
+            background-color: #ff5a4d; /* Etwas dunkleres Rosa beim Klicken */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Ergebnisbereich ohne Hintergrundbox und ohne Rahmen */
+        #result {
+            padding: 20px;
+            margin-top: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* Song-Ergebnisse ohne Rahmen und Schatten */
+        #result div {
+            background-color: transparent; /* Kein Hintergrund für die Ergebnisse */
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #result div:hover {
+            box-shadow: none; /* Kein Hover-Effekt mehr */
+        }
+
+        /* Links */
+        a {
+            color: #2ac4a5;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Allgemeine Container für das Layout */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Styling für das Logo */
+        .logo {
+            width: 150px; /* Logo-Größe anpassen */
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo einfügen -->
+        <img src="Power_Puffer_Logo_Transparent.png" alt="Power Puffer Logo" class="logo">
+
+        <h1>Power Puffer</h1>
+        <p>Geben Sie einen Song ein, um die Energy des Songs zu finden:</p>
+
+        <!-- Kombiniertes Eingabefeld für die Songsuche als Text, Song-Link oder Playlist-Link -->
+        <p>
+            <label for="searchInput">Geben Sie einen Songnamen, einen Spotify-Song-Link oder einen Spotify-Playlist-Link ein:</label>
+            <input type="text" id="searchInput" placeholder="Text, Spotify-Song-Link oder Playlist-Link eingeben...">
+        </p>
+
+        <!-- Eingabefelder für minimalen und maximalen Energy-Wert -->
+        <p>
+            <label for="minEnergy">Minimaler Energy-Wert:</label>
+            <input type="number" id="minEnergy" value="0" step="0.01">
+        </p>
+        <p>
+            <label for="maxEnergy">Maximaler Energy-Wert:</label>
+            <input type="number" id="maxEnergy" value="1" step="0.01">
+        </p>
+
+        <!-- Button zum Suchen der Songs -->
+        <button onclick="search()">Suchen</button>
+
+        <!-- Bereich für die Anzeige der Ergebnisse -->
+        <div id="result"></div>
+    </div>
+
+    <!-- JavaScript-Datei einbinden -->
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+
+
