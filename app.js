@@ -7,30 +7,43 @@ let accessToken = '';
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 const scopes = 'user-read-private user-read-email';
 
-const authUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${scopes}`;
+const authUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(scopes)}`;
 
 // Authentifizierung mit Spotify API
 function authenticate() {
     console.log('Authentifizierung gestartet...');
     console.log('Redirect URI:', redirectUri);  // Debugging: Die Redirect URI wird in der Konsole ausgegeben
     console.log('Auth URL:', authUrl);  // Debugging: Die Authentifizierungs-URL wird in der Konsole ausgegeben
-    window.location = authUrl;
+    window.location.href = authUrl;  // Leite den Benutzer zu Spotify um, um die Authentifizierung zu starten
 }
 
-// Access Token aus der URL holen
+// Access Token aus der URL holen und prüfen, ob der Benutzer authentifiziert wurde
 function getAccessToken() {
-    const hash = window.location.hash;
+    const hash = window.location.hash;  // Prüft, ob die URL den Access Token enthält
     if (hash) {
         const params = new URLSearchParams(hash.substring(1));
         accessToken = params.get('access_token');
-        window.location.hash = '';  // Entferne das Token aus der URL
+        console.log('Access Token erhalten:', accessToken);  // Debugging: Token in der Konsole ausgeben
+        window.location.hash = '';  // Entferne das Token aus der URL, um die URL sauber zu halten
 
-        // Prüfe, ob der Benutzer sich auf der Root-Seite befindet
-        if (window.location.pathname === '/') {
-            console.log('Token erhalten, bleibe auf der Seite.');
+        if (accessToken) {
+            // Authentifizierung erfolgreich
+            console.log('Token erhalten und gespeichert.');
+        } else {
+            // Authentifizierung fehlgeschlagen
+            console.error('Fehler beim Abrufen des Tokens.');
         }
+    } else {
+        // Kein Token vorhanden, starte die Authentifizierung
+        console.log('Kein Access Token vorhanden, starte Authentifizierung.');
+        authenticate();
     }
 }
+
+// Hauptfunktion zum Starten der Authentifizierung oder Nutzung des Tokens
+window.onload = function() {
+    getAccessToken();  // Versuche den Access Token beim Laden der Seite zu holen
+};
 
 // Hauptfunktion zum Erkennen und Ausführen der richtigen Suche
 function search() {
@@ -205,6 +218,3 @@ function isSpotifyTrackLink(input) {
 function isSpotifyPlaylistLink(input) {
     return input.includes('playlist/');
 }
-
-// Beim Laden der Seite das Access Token holen
-window.onload = getAccessToken;
