@@ -1,6 +1,6 @@
 // Spotify API Variablen
 const clientId = 'f3efb62584fb45f7b55583c2115a89b5';  // Deine Client-ID von Spotify
-const redirectUri = 'https://flostra1991.github.io/powerpuffer';  // Die Redirect URI zeigt auf die Root-Seite
+const redirectUri = 'https://flostra1991.github.io/powerpuffer/';  // Die Redirect URI zeigt auf die Root-Seite
 let accessToken = '';
 
 // Spotify API Authentifizierungs-URL erstellen
