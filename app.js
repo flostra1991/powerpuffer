@@ -1,7 +1,6 @@
 // Spotify API Variablen
 const clientId = 'f3efb62584fb45f7b55583c2115a89b5';  // Deine Client-ID von Spotify
-const redirectUri = 'https://flostra1991.github.io/powerpuffer/
-' ;  // Die Redirect URI zeigt auf die Root-Seite
+const redirectUri = 'https://flostra1991.github.io/powerpuffer/';  // Achte auf den Schrägstrich am Ende
 let accessToken = '';
 
 // Spotify API Authentifizierungs-URL erstellen
@@ -12,6 +11,9 @@ const authUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUr
 
 // Authentifizierung mit Spotify API
 function authenticate() {
+    console.log('Authentifizierung gestartet...');
+    console.log('Redirect URI:', redirectUri);  // Debugging: Die Redirect URI wird in der Konsole ausgegeben
+    console.log('Auth URL:', authUrl);  // Debugging: Die Authentifizierungs-URL wird in der Konsole ausgegeben
     window.location = authUrl;
 }
 
@@ -206,10 +208,3 @@ function isSpotifyPlaylistLink(input) {
 
 // Beim Laden der Seite das Access Token holen
 window.onload = getAccessToken;
-
-
-
-
-
-
-
